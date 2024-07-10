@@ -1,5 +1,8 @@
 import { Mail, User, X } from "lucide-react";
 import { FormEvent } from "react";
+import { Button } from "../../components/button";
+import { Modal } from "../../components/modal";
+import { Input } from "../../components/input";
 
 interface ConfirmTripModalProps {
     closeConfirmTripModal: () => void;
@@ -9,7 +12,7 @@ interface ConfirmTripModalProps {
 export function ConfirmTripModal({ closeConfirmTripModal, createTrip }: ConfirmTripModalProps) {
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-            <div className="w-[540px] bg-zinc-900 rounded-xl py-5 px-6 shadow-shape space-y-5">
+            <Modal variant="primary">
                 <div className="space-y-2">
                     <div className="flex items-center justify-between">
                         <h2 className="text-lg font-semibold">Confirmar criação da viagem</h2>
@@ -27,28 +30,32 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip }: ConfirmT
                 <form onSubmit={createTrip} className="space-y-3">
                     <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
                         <User className="size-5 text-zinc-400" />
-                        <input
-                            name="name"
-                            className="text-zinc-400 text-base bg-transparent placeholder-zinc-400 outline-none flex-1"
-                            placeholder="Seu nome completo"
+                        <Input 
+                            name="name" 
+                            placeholder="Seu nome completo" 
+                            textSize="base"
+                            textColor="zinc400"
+                            flex="flex1"
                         />
                     </div>
 
                     <div className="h-14 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
                         <Mail className="size-5 text-zinc-400" />
-                        <input
-                            type="email"
-                            name="email"
-                            className="text-zinc-400 text-base bg-transparent placeholder-zinc-400 outline-none flex-1"
-                            placeholder="Seu e-mail pessoal"
+                        <Input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Seu e-mail pessoal" 
+                            textSize="base"
+                            textColor="zinc400"
+                            flex="flex1"
                         />
                     </div>
-                    <button type="submit" className="w-full flex justify-center items-center bg-lime-300 px-5 h-11 text-lime-950 font-medium gap-2 rounded-lg hover:bg-lime-400">
+                    <Button type="submit" variant="primary" size="full">
                         Confirmar criação da viagem
-                    </button>
+                    </Button>
                 </form>
 
-            </div>
+            </Modal>
         </div>
     );
 }

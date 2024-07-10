@@ -1,5 +1,8 @@
 import { AtSign, Plus, X } from "lucide-react";
 import { FormEvent } from "react";
+import { Button } from "../../components/button";
+import { Modal } from "../../components/modal";
+import { Input } from "../../components/input";
 
 interface InviteGuestsModalProps {
     closeGuestModal: () => void;
@@ -13,7 +16,7 @@ export function InviteGuestsModal( { closeGuestModal, emailsToInvite, removeEmai
 
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-            <div className="w-[640px] bg-zinc-900 rounded-xl py-5 px-6 shadow-shape space-y-5">
+            <Modal variant="secondary">
                 <div className="space-y-2">
                     <div className="flex items-center justify-between">
                         <h2 className="text-lg font-semibold">Selecionar convidados</h2>
@@ -44,19 +47,21 @@ export function InviteGuestsModal( { closeGuestModal, emailsToInvite, removeEmai
                 <form onSubmit={addNewEmailToInvite} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
                     <div className="px-2 flex items-center flex-1 gap-2">
                         <AtSign className="size-5 text-zinc-400" />
-                        <input
+                        <Input
                             type="email"
                             name="email"
-                            className="text-zinc-400 text-lg bg-transparent placeholder-zinc-400 outline-none flex-1"
                             placeholder="Digite o e-mail do convidado"
+                            textSize="lg"
+                            textColor="zinc400"
+                            flex="flex1"
                         />
                     </div>
-                    <button type="submit" className="bg-lime-300 px-5 py-2 text-lime-950 font-medium gap-2 rounded-lg flex items-center hover:bg-lime-400">
+                    <Button variant="primary" type="submit">
                         Convidar
                         <Plus className="size-5" />
-                    </button>
+                    </Button>
                 </form>
-            </div>
+            </Modal>
         </div>
     );
 }
