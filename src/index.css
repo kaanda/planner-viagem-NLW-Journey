@@ -9,3 +9,15 @@
 input {
   color-scheme: dark;
 }
+
+/* //DatePicker personalizando estilo */
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+  background-color: #bef264 !important;
+  color: #18181b !important;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  color: #18181b !important;
+}
