@@ -7,9 +7,11 @@ import { Input } from "../../components/input";
 interface ConfirmTripModalProps {
     closeConfirmTripModal: () => void;
     createTrip: (event: FormEvent<HTMLFormElement>) => void;
+    setOwnerName: (name: string) => void;
+    setOwnerEmail: (email: string) => void;
 }
 
-export function ConfirmTripModal({ closeConfirmTripModal, createTrip }: ConfirmTripModalProps) {
+export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerName, setOwnerEmail}: ConfirmTripModalProps) {
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
             <Modal variant="primary">
@@ -36,6 +38,7 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip }: ConfirmT
                             textSize="base"
                             textColor="zinc400"
                             flex="flex1"
+                            onChange={(event) => setOwnerName(event.target.value)}
                         />
                     </div>
 
@@ -48,6 +51,7 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip }: ConfirmT
                             textSize="base"
                             textColor="zinc400"
                             flex="flex1"
+                            onChange={(event) => setOwnerEmail(event.target.value)}
                         />
                     </div>
                     <Button type="submit" variant="primary" size="full">

@@ -4,6 +4,8 @@ import { InviteGuestsModal } from "./invite-guests-modal";
 import { ConfirmTripModal } from "./confirm-trip-modal";
 import { DestinationAndDateStep } from "./steps/destination-and-date-step";
 import { InviteGuestStep } from "./steps/invite-guest-step";
+import { DateRange } from "react-day-picker";
+import { api } from "../../lib/axios";
 
 export function CreateTripPage() {
 
@@ -15,8 +17,14 @@ export function CreateTripPage() {
         'kaka@gmail.com',
         'kaanda.kaka@gmail.com'
     ]);
-    
     const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false);
+
+    //criando estados para armazenar os valores dos inputs de destino, nome do dono que criou a viagem, email do dono e datas de início e fim da viagem
+    //isso se chama lifting state up, ou seja, subir o estado para o componente pai
+    const [destination, setDestination] = useState('');
+    const [ownerName, setOwnerName] = useState('');
+    const [ownerEmail, setOwnerEmail] = useState('');
+    const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>();
 
     function openGuestInput() {
         setIsGuestInputOpen(true);
@@ -66,11 +74,53 @@ export function CreateTripPage() {
         setEmailsToInvite(newEmailList);
     }
 
-    function createTrip(event: FormEvent<HTMLFormElement>) {
+    async function createTrip(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        navigate('/trips/123');
+        console.log({
+            destination,
+            ownerName,
+            ownerEmail,
+            eventStartAndEndDates,
+            emailsToInvite
+        });
+
+    if (!destination){
+        console.log("Precisa de um destino para criar a viagem");
+        return;
     }
 
+    if (!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
+        console.log("Datas de início e fim do evento são obrigatórias");
+        return;
+    }
+
+    if (emailsToInvite.length === 0) {
+        console.log("Pelo menos um email precisa ser convidado para a viagem");
+        return;
+    }
+
+    if (!ownerName || !ownerEmail) {
+        console.log("Nome e email do dono da viagem são obrigatórios");
+        return;
+    }
+
+    try {
+        const response = await api.post('/trips', {
+            destination,
+            starts_at: eventStartAndEndDates.from,
+            ends_at: eventStartAndEndDates.to,
+            emails_to_invite: emailsToInvite,
+            owner_name: ownerName,
+            owner_email: ownerEmail
+        });
+
+        const { tripId } = response.data;
+        navigate(`/trips/${tripId}`);
+    } catch (error) {
+        console.error("Error creating trip:", error);
+    }
+}
+    
     return (
         <div className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center">
             <div className="max-w-full px-6 text-center space-y-16">
@@ -86,6 +136,9 @@ export function CreateTripPage() {
                         openGuestInput={openGuestInput}
                         closeGuestInput={closeGuestInput}
                         isGuestInputOpen={isGuestInputOpen}
+                        setDestination={setDestination}
+                        setEventStartAndEndDates={setEventStartAndEndDates}
+                        eventStartAndEndDates={eventStartAndEndDates}
                     />
 
                     {isGuestInputOpen && (
@@ -115,6 +168,8 @@ export function CreateTripPage() {
                 <ConfirmTripModal 
                     closeConfirmTripModal={closeConfirmTripModal} 
                     createTrip={createTrip}
+                    setOwnerName={setOwnerName}
+                    setOwnerEmail={setOwnerEmail}
                 />
             )}
         </div>

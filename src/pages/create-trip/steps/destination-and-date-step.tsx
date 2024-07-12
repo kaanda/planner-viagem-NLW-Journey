@@ -1,4 +1,4 @@
-import { ArrowRight, Calendar, Contact, MapPin, Settings2, X } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Settings2, X } from "lucide-react";
 import { Button } from "../../../components/button";
 import { Input } from "../../../components/input";
 import { useState } from "react";
@@ -6,24 +6,31 @@ import { Modal } from "../../../components/modal";
 import { DateRange, DayPicker } from "react-day-picker";
 import { format } from 'date-fns'
 import "react-day-picker/dist/style.css";
+import { ptBR } from "date-fns/locale";
 
 interface DestinationAndDateStepProps {
     openGuestInput: () => void;
     closeGuestInput: () => void;
     isGuestInputOpen: boolean;
+    setDestination: (destination: string) => void;
+    setEventStartAndEndDates: (dates: DateRange |undefined) => void;
+    eventStartAndEndDates: DateRange | undefined;
 }
 
 export function DestinationAndDateStep({
     openGuestInput,
     closeGuestInput,
     isGuestInputOpen,
+    setDestination,
+    setEventStartAndEndDates,
+    eventStartAndEndDates
 }: DestinationAndDateStepProps) {
 
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-    const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>();
-    const displayedDate = eventStartAndEndDates && eventStartAndEndDates.from && eventStartAndEndDates.to ?
-         format(eventStartAndEndDates.from, "d' de 'LLL").concat(' até ').concat(format(eventStartAndEndDates.to, "d' de 'LLL")) 
-         : null;
+
+    const displayedDate = eventStartAndEndDates && eventStartAndEndDates.from && eventStartAndEndDates.to
+    ? format(eventStartAndEndDates.from, "dd 'de' LLL", { locale: ptBR }).concat(" até ").concat(format(eventStartAndEndDates.to, "dd 'de' LLL", { locale: ptBR }))
+    : null;
 
     function openDatePicker() {
         return setIsDatePickerOpen(true);
@@ -43,6 +50,7 @@ export function DestinationAndDateStep({
                     textSize="lg"
                     textColor="zinc400"
                     placeholder="Para onde você vai?"
+                    onChange={(event) => setDestination(event.target.value)}
                 />
             </div>
 
