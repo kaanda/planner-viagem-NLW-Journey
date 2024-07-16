@@ -18,6 +18,7 @@ export function CreateTripPage() {
         'kaanda.kaka@gmail.com'
     ]);
     const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     //criando estados para armazenar os valores dos inputs de destino, nome do dono que criou a viagem, email do dono e datas de início e fim da viagem
     //isso se chama lifting state up, ou seja, subir o estado para o componente pai
@@ -83,6 +84,7 @@ export function CreateTripPage() {
             eventStartAndEndDates,
             emailsToInvite
         });
+        setIsLoading(true);
 
     if (!destination){
         console.log("Precisa de um destino para criar a viagem");
@@ -118,6 +120,8 @@ export function CreateTripPage() {
         navigate(`/trips/${tripId}`);
     } catch (error) {
         console.error("Error creating trip:", error);
+    }finally {
+        setIsLoading(false); 
     }
 }
     
@@ -170,6 +174,9 @@ export function CreateTripPage() {
                     createTrip={createTrip}
                     setOwnerName={setOwnerName}
                     setOwnerEmail={setOwnerEmail}
+                    isLoading={isLoading}
+                    destination={destination}
+                    eventStartAndEndDates={eventStartAndEndDates}
                 />
             )}
         </div>

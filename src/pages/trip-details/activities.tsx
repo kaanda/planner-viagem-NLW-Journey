@@ -4,7 +4,6 @@ import { api } from "../../lib/axios";
 import { format } from "date-fns";
 import {ptBR} from 'date-fns/locale'
 import { CircleCheck } from "lucide-react";
-import ReconnectingWebSocket from 'reconnecting-websocket';
 
 
 interface Activity {

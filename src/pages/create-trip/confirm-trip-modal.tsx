@@ -3,15 +3,21 @@ import { FormEvent } from "react";
 import { Button } from "../../components/button";
 import { Modal } from "../../components/modal";
 import { Input } from "../../components/input";
+import { DateRange } from "react-day-picker";
+import {displayedDate} from "./utils/format-date";
+
 
 interface ConfirmTripModalProps {
     closeConfirmTripModal: () => void;
     createTrip: (event: FormEvent<HTMLFormElement>) => void;
     setOwnerName: (name: string) => void;
     setOwnerEmail: (email: string) => void;
+    isLoading: boolean;
+    destination: string;
+    eventStartAndEndDates: DateRange | undefined;
 }
 
-export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerName, setOwnerEmail}: ConfirmTripModalProps) {
+export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerName, setOwnerEmail, isLoading, destination, eventStartAndEndDates}: ConfirmTripModalProps) {
     return (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
             <Modal variant="primary">
@@ -24,8 +30,12 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerNa
                     </div>
                     <p className="text-zinc-400 text-sm">
                         Para concluir a criação da viagem para{" "}
-                        <span className="text-zinc-100 font-semibold">Florianópolis, Brasil</span> nas datas de{" "}
-                        <span className="text-zinc-100 font-semibold">16 a 27 de Agosto de 2024</span> preencha seus dados abaixo:
+                        <span className="text-zinc-100 font-semibold">
+                            {destination}
+                        </span> nas datas de{" "}
+                        <span className="text-zinc-100 font-semibold">
+                            {displayedDate(eventStartAndEndDates)}
+                        </span> preencha seus dados abaixo:
                     </p>
                 </div>
 
@@ -54,9 +64,19 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerNa
                             onChange={(event) => setOwnerEmail(event.target.value)}
                         />
                     </div>
-                    <Button type="submit" variant="primary" size="full">
+                    <Button 
+                        type="submit" 
+                        variant="primary" 
+                        size="full"
+                        disabled={isLoading}
+                        >
                         Confirmar criação da viagem
                     </Button>
+                    {isLoading && 
+                        <div className="absolute inset-0 bg-black/75 flex items-center justify-center">
+                            <span className="text-white">Aguarde, criando viagem...</span>
+                        </div>
+                    }
                 </form>
 
             </Modal>
