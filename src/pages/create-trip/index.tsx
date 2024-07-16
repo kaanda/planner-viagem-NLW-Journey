@@ -119,7 +119,7 @@ export function CreateTripPage() {
         const { tripId } = response.data;
         navigate(`/trips/${tripId}`);
     } catch (error) {
-        console.error("Error creating trip:", error);
+        console.error("Erroa ao criar uma viagem:", error);
     }finally {
         setIsLoading(false); 
     }
