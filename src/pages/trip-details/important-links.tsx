@@ -24,8 +24,6 @@ export function ImportantLinks({ openCreateLinkModal }: ImportantLinksProps) {
             .then(response => setLinks(response.data.links))
     }, [tripId])
 
-   
-
     return (
         <div className="space-y-6 ">
             <h2 className="font-semiboldt-semi text-xl">Links importantes</h2>
@@ -46,7 +44,6 @@ export function ImportantLinks({ openCreateLinkModal }: ImportantLinksProps) {
                 <Plus className="size-5" />
                 Cadastrar novo link
             </Button>
-            
         </div>
     )
 }
