@@ -55,6 +55,7 @@ export function CreateActivityModal({closeCreateActivityModal}: CreateActivityMo
                             textColor="zinc200"
                             flex="flex1"
                             placeholder="Qual a atividade?"
+                            required
                         />
                     </div>
                         <div className="flex items-center gap-2">
@@ -68,6 +69,7 @@ export function CreateActivityModal({closeCreateActivityModal}: CreateActivityMo
                                     flex="flex1"
                                     scheme="dark"
                                     placeholder="Data e horário da ativiadade"
+                                    required
                                 />
                             </div>
                         </div>

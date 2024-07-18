@@ -89,6 +89,7 @@ export function CreateLinkModal({ closeCreateLinkModal }: CreateLinkModalProps) 
                             textSize="base"
                             textColor="zinc400"
                             flex="flex1"
+                            required
                         />
                     </div>
 
@@ -100,6 +101,7 @@ export function CreateLinkModal({ closeCreateLinkModal }: CreateLinkModalProps) 
                             textSize="base"
                             textColor="zinc400"
                             flex="flex1"
+                            required
                         />
                     </div>
                     <Button 

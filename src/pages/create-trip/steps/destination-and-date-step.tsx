@@ -4,8 +4,8 @@ import { Input } from "../../../components/input";
 import { useState } from "react";
 import { Modal } from "../../../components/modal";
 import { DateRange, DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
 import { displayedDate } from "../utils/format-date";
+import "react-day-picker/dist/style.css";
 
 interface DestinationAndDateStepProps {
     openGuestInput: () => void;
@@ -73,11 +73,11 @@ export function DestinationAndDateStep({
                                 </button>
                             </div>
                         </div>
-
                         <DayPicker 
                             mode="range" 
                             selected={eventStartAndEndDates} 
                             onSelect={setEventStartAndEndDates} 
+                            disabled={{ before: new Date() }}
                         />
 
                     </Modal>
@@ -90,7 +90,7 @@ export function DestinationAndDateStep({
                 <Button variant="secondary" onClick={closeGuestInput}>
                     Alterar local/data
                     <Settings2 className="size-5" />
-                </Button>
+                </Button>   
             ) : (
                 <Button variant="primary" onClick={openGuestInput}>
                     Continuar

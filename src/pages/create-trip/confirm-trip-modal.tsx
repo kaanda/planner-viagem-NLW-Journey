@@ -49,6 +49,7 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerNa
                             textColor="zinc400"
                             flex="flex1"
                             onChange={(event) => setOwnerName(event.target.value)}
+                            required
                         />
                     </div>
 
@@ -62,6 +63,7 @@ export function ConfirmTripModal({ closeConfirmTripModal, createTrip, setOwnerNa
                             textColor="zinc400"
                             flex="flex1"
                             onChange={(event) => setOwnerEmail(event.target.value)}
+                            required
                         />
                     </div>
                     <Button 
